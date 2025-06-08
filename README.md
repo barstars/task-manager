@@ -1,5 +1,5 @@
+#Tasks Manager
 ##Архитектура проекта
-
 .env Нужно добавить самому
 ```architecture
 tasks/
@@ -25,4 +25,25 @@ tasks/
      		/JWT.py 			 # Генерация и обратно
      		/password_hashing.py # Хэширование и проверка пароля
      /database.py # Подключение к БД
+```
+
+##Запуск программы (RUN)
+Создайте папку .env
+```.env
+DATABASE_URL=postgresql+asyncpg://postgres:123@localhost:5432/database
+ACCESS_TOKEN_EXPIRE_DAYS=30
+SECRET_KEY=supersecret
+HESHALGORITHM=HS256
+```
+
+Создайте виртуальный окружение и загрузите зависимое библотеки и фреймворки
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+После запустите alembic
+```bash
+alembic upgrade head
 ```
