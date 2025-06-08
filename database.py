@@ -11,5 +11,5 @@ async def get_db() -> AsyncGenerator:
 	"""
 	Submits a session for the database
 	"""
-    async with SessionLocal() as session:
-        yield session
+	async with SessionLocal() as session:
+		yield session

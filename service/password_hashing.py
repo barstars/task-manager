@@ -7,7 +7,7 @@ def hash_password(password: str) -> str:
 
 	password -- Real password
 	"""
-    return pwd_context.hash(password)
+	return pwd_context.hash(password)
 
 def verify_password(password: str, hashed: str) -> bool:
 	"""
@@ -16,4 +16,4 @@ def verify_password(password: str, hashed: str) -> bool:
 	password -- The candidate password
 	hashed -- Hash from real password
 	"""
-    return pwd_context.verify(password, hashed)
+	return pwd_context.verify(password, hashed)

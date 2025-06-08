@@ -1,5 +1,5 @@
-#Tasks Manager
-##Архитектура проекта
+# Tasks Manager
+## Архитектура проекта
 .env Нужно добавить самому
 ```architecture
 tasks/
@@ -7,7 +7,8 @@ tasks/
      /config.py   # Конфигурация
      /.env        # Данные для конфигураций
      /routers/    # Controller
-             /auth.py     # Регистрация и авторизация
+             /register.py     # Регистрация
+             /login.py        # Авторизация
              /create_tasks.py # Добавляет задач
              /tasks_edit.py   # Изменения задач
              /tasks_search.py # Пойск данных
@@ -27,7 +28,7 @@ tasks/
      /database.py # Подключение к БД
 ```
 
-##Запуск программы (RUN)
+## Запуск программы (RUN)
 Создайте папку .env
 ```.env
 DATABASE_URL=postgresql+asyncpg://postgres:123@localhost:5432/database
