@@ -13,7 +13,7 @@ class Base(DeclarativeBase):
 	"""
 	pass
 
-class Users(Base):
+class UsersBase(Base):
 	"""
 	Database model for user
 	"""
@@ -24,7 +24,7 @@ class Users(Base):
 	email: Mapped[str] = mapped_column(String, unique=True)
 	password_hash: Mapped[str] = mapped_column(String)
 
-class Tasks(Base):
+class TasksBase(Base):
 	__tablename__ = "tasks"
 
 	id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -35,7 +35,7 @@ class Tasks(Base):
 	due_date: Mapped[datetime.datetime] = mapped_column(DateTime)
 	user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
 
-class Sessions(Base):
+class SessionsBase(Base):
 	__tablename__ = "sessions"
 
 	id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
