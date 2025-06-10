@@ -33,6 +33,12 @@ def get_tasks_view(tasks):
 	else:
 		return not_user()
 
+def delete_task_view(is_True:bool):
+	if is_True:
+		return JSONResponse(status_code=200, content={"success":True,"message":True})
+	else:
+		return JSONResponse(status_code=400, content={"success":False,"message":"Не удалился"})
+
 def not_user():
 	return JSONResponse(status_code=400, content={"success":False,"message":"вы не пользватель"})
 
@@ -40,7 +46,7 @@ def updateTasks(is_True:bool):
 	if is_True:
 		return JSONResponse(status_code=200, content={"success":True,"message":True})
 	else:
-		return JSONResponse(status_code=400, content={"success":False,"message":"Не обнавился."})
+		return JSONResponse(status_code=400, content={"success":False,"message":"Не обнавился"})
 
 def not_filter():
 	return JSONResponse(status_code=400, content={"success":False,"message":"Фильтр не прваильный"})

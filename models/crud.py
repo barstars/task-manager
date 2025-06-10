@@ -71,6 +71,15 @@ class TaskCRUD:
 		await self.db.commit()
 		return True
 
+	async def delete_task(self, id_):
+		curr = await self.get_by_id(id_)
+		if curr:
+			await self.db.delete(curr)
+			await self.db.commit()
+			return True
+		else:
+			return False
+
 	async def get_by_id(self, id_:str):
 		if id_:
 			result = await self.db.execute(select(TasksBase).where(TasksBase.id == uuid.UUID(id_)))

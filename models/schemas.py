@@ -28,6 +28,9 @@ class TaskAddForBase(TaskAdd):
 class UpdateTaskStatus(BaseModel):
 	id: str
 
+class DeleteTask(BaseModel):
+	id:str
+
 class UserAdd(BaseModel):
 	username: str
 	email: str

@@ -11,7 +11,8 @@ tasks/
              /login.py        # Авторизация
              /create_tasks.py # Добавляет задач
              /update_task.py  # Обновляет задач
-             /tasks_search.py # Пойск данных
+             /tasks_search.py # Пойск задач
+             /delete_tasks.py # Удаляют задач
      /models/     # Model: ORM, Pydantic, CRUD
      		/tables.py     # SQLAlchemy модели
             /schemas.py    # Pydantic-схемы
