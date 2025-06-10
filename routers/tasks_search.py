@@ -11,7 +11,7 @@ router = APIRouter(
 	prefix="/searsh",
 	tags=["searsh"])
 
-@router.post("/all")
+@router.get("/all")
 async def get_all_user_tasks_post(db: AsyncGenerator = Depends(get_db),
 	jwt: str = Cookie(None)):
 

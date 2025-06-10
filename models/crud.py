@@ -66,8 +66,8 @@ class TaskCRUD:
 		await self.db.commit()
 		return str(task.id)
 
-	async def update_status_for_in_progress(self, id_:str) -> bool:
-		await self.db.execute(update(TasksBase).where(TasksBase.id == uuid.UUID(id_)).values(status="in_progress"))
+	async def update_status(self, id_:str, status:str) -> bool:
+		await self.db.execute(update(TasksBase).where(TasksBase.id == uuid.UUID(id_)).values(status=status))
 		await self.db.commit()
 		return True
 
