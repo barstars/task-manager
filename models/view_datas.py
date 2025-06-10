@@ -51,3 +51,14 @@ class TaskDataView:
 
 		else:
 			return None
+
+	async def get_by_title(self, user_id:str, title:str):
+		result = await self.db.execute(select(TasksBase).where(
+			and_(
+				TasksBase.user_id == UUID(user_id),
+				TasksBase.title == title)
+			)
+		)
+		currs = result.scalars().all()
+		res = [await cur.get_info() for cur in currs]
+		return res

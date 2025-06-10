@@ -52,7 +52,27 @@ async def get_sort_by_duo_date(db: AsyncGenerator = Depends(get_db),
 		if sort_type and (sort_type in ["desc", "asc"]):
 			taskView = TaskDataView(db)
 			tasks = await taskView.get_sorting_by_due_date(user_id=user_id, sort_type=sort_type)
-			if tasks:
+			if tasks or (tasks == []):
+				return get_tasks_view(tasks)
+			else:
+				return not_filter()
+		else:
+			return not_filter()
+	else:
+		return not_user()
+
+@router.get("/by")
+async def get_search_by(db: AsyncGenerator = Depends(get_db),
+	title: Optional[str] = Query(None),
+	jwt: str = Cookie(None)):
+
+	user_id = await is_user(db, jwt)
+	
+	if user_id:
+		if title:
+			taskView = TaskDataView(db)
+			tasks = await taskView.get_by_title(user_id=user_id, title=title)
+			if tasks or (tasks == []):
 				return get_tasks_view(tasks)
 			else:
 				return not_filter()
