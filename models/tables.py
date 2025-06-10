@@ -6,6 +6,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from sqlalchemy import DateTime, ForeignKey, String
 
+from service.JWT import create_access_token
+
 
 class Base(DeclarativeBase):
 	"""
@@ -34,6 +36,14 @@ class TasksBase(Base):
 	status: Mapped[str] = mapped_column(String)
 	due_date: Mapped[datetime.datetime] = mapped_column(DateTime)
 	user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+
+	async def get_info(self):
+		return {"id": await create_access_token({"id":str(self.id)}),
+		"title": self.title,
+		"description": self.description,
+		"tags": self.tags,
+		"status": self.status,
+		"due_date": str(self.due_date)}
 
 class SessionsBase(Base):
 	__tablename__ = "sessions"

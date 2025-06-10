@@ -19,3 +19,15 @@ def login_view(jwt):
 		return response
 	else:
 		return JSONResponse(status_code=400, content={"success":False,"message":"email или пароль не правильный"})
+
+def taskAdd_view(jwt):
+	if jwt:
+		return JSONResponse(status_code=200, content={"success":True,"message":jwt})
+	else:
+		return JSONResponse(status_code=400, content={"success":False,"message":"вы не пользватель"})
+
+def get_tasks_view(tasks):
+	if type(tasks) == list:
+		return JSONResponse(status_code=200, content={"success":True,"message":tasks})
+	else:
+		return JSONResponse(status_code=400, content={"success":False,"message":"вы не пользватель"})
