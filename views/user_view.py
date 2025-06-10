@@ -41,3 +41,6 @@ def updateTasks(is_True:bool):
 		return JSONResponse(status_code=200, content={"success":True,"message":True})
 	else:
 		return JSONResponse(status_code=400, content={"success":False,"message":"Не обнавился."})
+
+def not_filter():
+	return JSONResponse(status_code=400, content={"success":False,"message":"Фильтр не прваильный"})

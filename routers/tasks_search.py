@@ -1,10 +1,10 @@
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Optional
 
-from fastapi import APIRouter, Depends, Cookie
+from fastapi import APIRouter, Depends, Cookie, Query
 
 from models.view_datas import TaskDataView
 from service.auth import is_user
-from views.user_view import get_tasks_view, not_user
+from views.user_view import get_tasks_view, not_user, not_filter
 from database import get_db
 
 router = APIRouter(
@@ -21,5 +21,22 @@ async def get_all_user_tasks_post(db: AsyncGenerator = Depends(get_db),
 		taskView = TaskDataView(db)
 		tasks = await taskView.get_all_user_tasks(user_id=user_id)
 		return get_tasks_view(tasks)
+	else:
+		return not_user()
+
+@router.get("/status")
+async def get_all_user_tasks_post(db: AsyncGenerator = Depends(get_db),
+	status: Optional[str] = Query(None),
+	jwt: str = Cookie(None)):
+
+	user_id = await is_user(db, jwt)
+
+	if user_id:
+		if status and (status in ["done", "in_progress", "new", "expired"]):
+			taskView = TaskDataView(db)
+			tasks = await taskView.get_status_filter_tasks(user_id=user_id, status=status)
+			return get_tasks_view(tasks)
+		else:
+			return not_filter()
 	else:
 		return not_user()
