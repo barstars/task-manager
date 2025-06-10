@@ -25,18 +25,8 @@ class TaskAddForBase(TaskAdd):
 	user_id: uuid.UUID
 	due_date: datetime
 
-class TaskUpdate(BaseModel):
+class UpdateTaskStatus(BaseModel):
 	id: str
-	title: str
-	description: str
-	due_date: str    # Станет [True,datetime.datetime]
-
-	@field_validator('due_date')
-	def parse_date(cls, v):
-		try:
-			return [True,datetime.strptime(v, "%d.%m.%Y")]
-		except ValueError:
-			return [False, "Дата должна быть в формате ДД.ММ.ГГГГ"]
 
 class UserAdd(BaseModel):
 	username: str

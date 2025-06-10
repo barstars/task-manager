@@ -3,10 +3,8 @@ from typing import AsyncGenerator
 from fastapi import APIRouter, Depends, Cookie
 
 from models.view_datas import TaskDataView
-from models.schemas import UserLogin
 from service.auth import is_user
-from service.edit_data import key_to_jwt
-from views.user_view import get_tasks_view
+from views.user_view import get_tasks_view, not_user
 from database import get_db
 
 router = APIRouter(
@@ -24,4 +22,4 @@ async def get_all_user_tasks_post(db: AsyncGenerator = Depends(get_db),
 		tasks = await taskView.get_all_user_tasks(user_id=user_id)
 		return get_tasks_view(tasks)
 	else:
-		return get_tasks_view(None)
+		return not_user()

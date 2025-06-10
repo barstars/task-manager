@@ -10,7 +10,7 @@ tasks/
              /register.py     # Регистрация
              /login.py        # Авторизация
              /create_tasks.py # Добавляет задач
-             /tasks_edit.py   # Изменения задач
+             /update_task.py  # Обновляет задач
              /tasks_search.py # Пойск данных
      /models/     # Model: ORM, Pydantic, CRUD
      		/tables.py     # SQLAlchemy модели
@@ -18,7 +18,7 @@ tasks/
             /crud.py       # CRUD-операции
             /view_datas.py # Читает данные
      /views/      # View
-     	   /user_view.py
+     	   /user_view.py # Все view здесь
      /utils/      # Утилиты (отдельные задачи, фоновые проверки)
            /check_due_date.py # Проверка просрочки
      /service/    # Service layer / общая логика
@@ -26,6 +26,7 @@ tasks/
      		/JWT.py 			 # Генерация и обратно
      		/password_hashing.py # Хэширование и проверка пароля
      /database.py # Подключение к БД
+     /alembic/    # alembic
 ```
 
 ## Запуск программы (RUN)
@@ -47,4 +48,9 @@ pip install -r requirements.txt
 После запустите alembic
 ```bash
 alembic upgrade head
+```
+
+Чтобы запустить сервер
+```bash
+uvicorn main:app
 ```

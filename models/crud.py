@@ -1,6 +1,7 @@
 from typing import AsyncGenerator
+import uuid
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from models.schemas import UserAdd, UserLogin, TaskAddForBase
 from .tables import *
@@ -45,7 +46,7 @@ class SessionCRUD:
 
 	async def get_by_id(self, id_:str):
 		if id_:
-			result = await self.db.execute(select(SessionsBase).where(SessionsBase.id == id_))
+			result = await self.db.execute(select(SessionsBase).where(SessionsBase.id == uuid.UUID(id_)))
 			curr = result.scalars().first()
 			if curr:
 				return curr
@@ -65,9 +66,14 @@ class TaskCRUD:
 		await self.db.commit()
 		return str(task.id)
 
+	async def update_status_for_in_progress(self, id_:str) -> bool:
+		await self.db.execute(update(TasksBase).where(TasksBase.id == uuid.UUID(id_)).values(status="in_progress"))
+		await self.db.commit()
+		return True
+
 	async def get_by_id(self, id_:str):
 		if id_:
-			result = await self.db.execute(select(TasksBase).where(TasksBase.id == id_))
+			result = await self.db.execute(select(TasksBase).where(TasksBase.id == uuid.UUID(id_)))
 			curr = result.scalars().first()
 			if curr:
 				return curr
