@@ -30,12 +30,3 @@ class UpdateTaskStatus(BaseModel):
 
 class DeleteTask(BaseModel):
 	id:str
-
-class UserAdd(BaseModel):
-	username: str
-	email: str
-	password: str
-
-class UserLogin(BaseModel):
-	email: str
-	password: str
